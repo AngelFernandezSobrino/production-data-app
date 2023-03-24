@@ -121,3 +121,20 @@ export default function Home() {
     </>
   )
 }
+
+import { batchFactory } from '../models/batch'
+
+export async function getServerSideProps() {
+
+  const batchModel = await batchFactory();
+
+  let batches = await batchModel.find({}, {_id: 0}).lean();
+
+  console.log(batches);
+  
+  return {
+    props: {
+      batches,
+    }
+  }
+}
